@@ -24,7 +24,7 @@
                     <div class="form-group">
                         <label for="email">อีเมล</label>
                         <input class="form-control" type="email" name="email"
-                        v-model="email">
+                        v-model="form.email">
                     </div>
                     {{form.email}}
                     <div class="form-group">
@@ -74,7 +74,7 @@
                     {{form.agreement}}
                     <div class="btn">
                         <button type="submit" class="btn btn-primary">ลงทะเบียน</button>
-                        <button type="button" class="btn btn-danger">ล้างข้อมูล</button>
+                        <button type="button" @click="onReset" class="btn btn-danger">ล้างข้อมูล</button>
                     </div>
             </form>
         </div>
