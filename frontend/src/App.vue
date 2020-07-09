@@ -22,6 +22,7 @@ export default {
   #app {
     display: grid;
     justify-content: center;
+    margin: 2rem 0;
   }
   .logo {
     text-align: center;
