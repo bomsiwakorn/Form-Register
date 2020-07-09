@@ -33,8 +33,8 @@
                         <input type="file" name="upload">
                     </div>
                     <div class="form-group">
-                        <label for="">รู้จักเว็บไซต์นี้ได้ยังไง</label>
-                        <select name="">
+                        <label for="news">รู้จักเว็บไซต์นี้ได้ยังไง</label>
+                        <select name="news">
                             <option value="">โปรดเลือก 1 ข้อ</option>
                             <option value="โฆษาในSocial Media">โฆษาในSocial Media</option>
                             <option value="เพื่อนแนะนำ">เพื่อนแนะนำ</option>
