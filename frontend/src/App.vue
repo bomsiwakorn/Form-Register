@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
+    <div class="logo">
+      <img alt="Vue logo" src="./assets/logo.png">
+    </div>
     <Form />
   </div>
 </template>
@@ -16,13 +18,15 @@ export default {
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped>
+  #app {
+    display: grid;
+    justify-content: center;
+  }
+  .logo {
+    text-align: center;
+  }
+  .logo img {
+    width: 120px;
+  }
 </style>
