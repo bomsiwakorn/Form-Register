@@ -1,7 +1,7 @@
 <template>
     <div id="form">
-        <header>Register</header>
         <div class="container">
+            <header>Register</header>
             <form action="">
                     <div class="form-group">
                         <label for="fname">ชื่อ</label>
@@ -58,4 +58,14 @@
         </div>
     </div>
 </template>
+
+<style scoped>
+    .container {
+        width: 500px;
+    }
+    header {
+        text-align: center;
+        font-size: 2rem;
+    }
+</style>
 
