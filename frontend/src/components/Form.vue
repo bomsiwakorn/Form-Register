@@ -2,7 +2,7 @@
     <div id="form">
         <div class="container">
             <header>Register</header>
-            <form action="" @submit.prevent="onSubmit">
+            <form action="" @submit.prevent="onSubmit" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="fname">ชื่อ</label>
                         <input class="form-control" type="text" name="fname" 
@@ -125,27 +125,34 @@ export default {
                 news: '',
                 agreement: []
             },
-            
         }
     },
     methods: {
         fileUpload() {
-            console.log(this.$refs.file.files[0]);            
+            // console.log(this.$refs.file.files[0]);            
             this.form.file = this.$refs.file.files[0]
         },
         onSubmit() {
             this.$validator.validateAll().then(valid => {
                 if(!valid) return
-                // const formData = new FormData()
-                // formData.append('file', this.form)
-                // console.log(formData);
-
-                    axios.post('http://192.168.100.69:1323/', this.form)
-                            .then(res => {
-                            console.log(res);
-                            }) 
-
-            })
+                const data = new FormData()
+                data.append('fname', this.form.fname)
+                data.append('lname', this.form.lname)
+                data.append('tel', this.form.tel)
+                data.append('email', this.form.email)
+                data.append('password', this.form.password)
+                data.append('gender', this.form.gender)
+                data.append('news', this.form.news)
+                data.append('agreement', this.form.agreement)
+                data.append('file', this.form.file)
+                console.log(this.form.file);
+                const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+                axios.post('http://localhost:5000/upload', data, config)
+                .then(res => {
+                    console.log(res);
+                })
+                
+            })  
             
         },
         onReset() {
