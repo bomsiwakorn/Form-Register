@@ -2,7 +2,7 @@
     <div id="form">
         <div class="container">
             <header>Register</header>
-            <form action="" @submit.prevent="onSubmit" enctype="multipart/form-data">
+            <form action="" @submit.prevent="onSubmit">
                     <div class="form-group">
                         <label for="fname">ชื่อ</label>
                         <input class="form-control" type="text" name="fname" 
@@ -11,7 +11,6 @@
                         :class="{ 'is-invalid': errors.has('fname') }">
                         <span class="invalid-feedback">{{ errors.first('fname') }}</span>
                     </div>
-                    {{form.fname}}
                     <div class="form-group">
                         <label for="lname">นามสกุล</label>
                         <input class="form-control" type="text" name="lname"
@@ -20,7 +19,6 @@
                         :class="{ 'is-invalid': errors.has('lname') }">
                         <span class="invalid-feedback">{{ errors.first('lname') }}</span>
                     </div>
-                    {{form.lname}}
                     <div class="form-group">
                         <label for="tel">เบอร์โทร</label>
                         <input class="form-control" type="tel" name="tel"
@@ -29,7 +27,6 @@
                         :class="{ 'is-invalid': errors.has('tel') }">
                         <span class="invalid-feedback">{{ errors.first('tel') }}</span>
                     </div>
-                    {{form.tel}}
                     <div class="form-group">
                         <label for="email">อีเมล</label>
                         <input class="form-control" type="email" name="email"
@@ -38,7 +35,6 @@
                         :class="{ 'is-invalid': errors.has('email') }">
                         <span class="invalid-feedback">{{ errors.first('email') }}</span>
                     </div>
-                    {{form.email}}
                     <div class="form-group">
                         <label for="password">รหัสผ่าน</label>
                         <input class="form-control" type="password" name="password"
@@ -47,7 +43,6 @@
                         :class="{ 'is-invalid': errors.has('password') }" >
                         <span class="invalid-feedback">{{ errors.first('password') }}</span>
                     </div>
-                    {{form.password}}
                     <div class="form-group">
                         <label for="gender">เพศ</label>
                         <input type="radio" name="gender" value="ชาย" 
@@ -58,13 +53,9 @@
                         v-model="form.gender"> หญิง
                         <span class="invalid-feedback">{{ errors.first('gender') }}</span>
                     </div>
-                    {{form.gender}}
                     <div class="form-group">
                         <label for="upload">รูปภาพ</label>
-                        <input type="file" name="file" ref="file" @change="fileUpload"
-                        v-validate="'required'"
-                        :class="{ 'is-invalid': errors.has('file') }">  
-                        <span class="invalid-feedback">{{ errors.first('file') }}</span>               
+                        <input type="file" name="file" ref="file" @change="fileUpload">            
                     </div>
                     <div class="form-group">
                         <label for="news">รู้จักเว็บไซต์นี้ได้ยังไง</label>
@@ -78,7 +69,6 @@
                         </select>
                          <span class="invalid-feedback">{{ errors.first('news') }}</span>
                     </div>
-                    {{form.news}}
                     <div class="form-group">
                         <label for="agreement">ข้อตกลงและเงื่อนไข</label>
                         <div class="form-agreement">
@@ -97,12 +87,10 @@
                         </div>
                         
                     </div>
-                    {{form.agreement}}
                     <div class="btn">
                         <button type="submit" class="btn btn-primary">ลงทะเบียน</button>
                         <button type="button" @click="onReset" class="btn btn-danger">ล้างข้อมูล</button>
                     </div>
-                    {{this.form.file}}
             </form>
         </div>
     </div>
@@ -115,11 +103,11 @@ export default {
     data() {
         return {
             form: {
-                fname: 'Siwakorn',
-                lname: 'Jindajamorn',
-                tel: '123',
-                email: 'bomsiwakorn@gmail.com',
-                password: '123',
+                fname: '',
+                lname: '',
+                tel: '',
+                email: '',
+                password: '',
                 gender: '',
                 file: null,
                 news: '',
@@ -132,7 +120,7 @@ export default {
             // console.log(this.$refs.file.files[0]);            
             this.form.file = this.$refs.file.files[0]
         },
-        onSubmit() {
+        onSubmit(e) {
             this.$validator.validateAll().then(valid => {
                 if(!valid) return
                 const data = new FormData()
@@ -147,13 +135,19 @@ export default {
                 data.append('file', this.form.file)
                 console.log(this.form.file);
                 const config = { headers: { 'Content-Type': 'multipart/form-data' } };
-                axios.post('http://localhost:5000/upload', data, config)
+                axios.post('http://localhost:3000/upload', data, config)
                 .then(res => {
                     console.log(res);
                 })
                 
             })  
-            
+            const file = this.$refs.file.files[0];
+            if (!file) {
+                e.preventDefault();
+                alert('No file chosen');
+                return;
+            }
+            alert('File OK');
         },
         onReset() {
             this.form = {
